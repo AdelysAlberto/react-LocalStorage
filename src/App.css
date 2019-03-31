@@ -31,3 +31,17 @@
     transform: rotate(360deg);
   }
 }
+.ant-layout {
+  background: #fff !important;
+}
+.header-des {
+  background:#2e5688;
+  color:#fff;
+}
+
+.ant-form-item {
+  margin-bottom: 5px !important;
+}
+.ant-time-picker-clear {
+  display: none !important;
+}
