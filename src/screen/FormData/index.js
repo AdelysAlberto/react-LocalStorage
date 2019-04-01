@@ -1,12 +1,11 @@
 import React from 'react';
-import { Form, Input, Row, Col,  Button, AutoComplete, } from 'antd';
+import { Form, Row, Col,  Button, AutoComplete, } from 'antd';
 
 import ContactDelivery from './ContactDelivery';
 import ContactComercial from "./ContactComercial";
 import ContactAdministrative from "./ContactAdministrative";
 
-import { formItemLayout, footerData } from '../../utils/StylesConstants';
-import  Validations  from  '../../utils/ValidationRules';
+import { formItemLayout } from '../../utils/StylesConstants';
 import moment from 'moment';
 
 
@@ -14,34 +13,51 @@ class FormData extends React.Component {
     state = {
         current: 'new',
         autoCompleteResult: [],
+        data:[]
     };
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                //console.log('Received values of form: ', values);
             }
+            this.updateStorage(values);
             const time= moment('12:08', 'HH:mm');
-            console.log(values);
+            console.log("lo que recibo", values);
         });
     };
-    handleWebsiteChange = (value) => {
-        let autoCompleteResult;
-        if (!value) {
-            autoCompleteResult = [];
-        } else {
-            autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-        }
-        this.setState({autoCompleteResult});
+
+    updateStorage = (values) => {
+        let existing = JSON.parse(localStorage.getItem('data'));
+        console.log("tengo algo en storage?", existing);
+
+        //existing = existing ? existing.split(',') : [];
+        existing.push(values);
+
+        console.log("Preparado para actualizar la data", existing);
+        localStorage.setItem('data', JSON.stringify(existing));
+
+        console.log("Guarde algo?", JSON.parse(localStorage.getItem('data')));
+
+    };
+
+    componentDidMount() {
+        this.setState({data: localStorage.getItem('data')})
     }
+
+    clearLocalStorage = () => {
+        console.log("Limpiando Storage");
+        localStorage.clear();
+    };
 
     render() {
 
+        console.log("data del storage", this.state.data);
         const AutoCompleteOption = AutoComplete.Option;
         const {getFieldDecorator} = this.props.form;
         const {autoCompleteResult} = this.state;
-        console.log(Validations.validateName );
+
 
         const websiteOptions = autoCompleteResult.map(website => (
             <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
@@ -81,7 +97,8 @@ class FormData extends React.Component {
                 </Row>
                 <Row>
                     <Col span={22} className="d-flex justify-content-end">
-                            <Button type="primary" htmlType="submit">Register</Button>
+                            <Button className="mr-2" type="primary" htmlType="submit">Guardar</Button>
+                            <Button type="warning" htmlType="button" onClick={this.clearLocalStorage}>Limpiar</Button>
                     </Col>
                 </Row>
     </Form> )}
