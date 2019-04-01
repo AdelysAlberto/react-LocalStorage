@@ -32,7 +32,7 @@ class FormData extends React.Component {
         let existing = JSON.parse(localStorage.getItem('data'));
         console.log("tengo algo en storage?", existing);
 
-        //existing = existing ? existing.split(',') : [];
+        existing = existing ? existing.split(',') : [];
         existing.push(values);
 
         console.log("Preparado para actualizar la data", existing);
