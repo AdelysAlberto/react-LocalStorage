@@ -17,6 +17,14 @@ export default class GridData extends React.Component {
         this.props.history.push(`/detail/delivery/${id}`);
     };
 
+    delete = (id) => {
+        const remove=_.remove(this.state.backup, function(el) { return el.id === id });
+        localStorage.clear();
+        localStorage.setItem('data', JSON.stringify(this.state.backup));
+        this.setState({data:this.state.backup});
+        this.setState({clean: true});
+    };
+
     searchData = (data) => {
         const index=data.target.value.toLowerCase();
         let currentData=this.state.data, newData=[];
@@ -24,6 +32,7 @@ export default class GridData extends React.Component {
             newData = currentData.filter(value => value.name.toLowerCase().includes(index));
         } else {
             newData=this.state.backup;
+            this.setState({data:newData});
         }
         this.setState({data:newData});
     };
@@ -44,7 +53,7 @@ export default class GridData extends React.Component {
     render() {
         //get data sources from the state
         const { data } = this.state;
-
+        console.log(this.state.clean);
         //define the columns
         const columns = [{
             //set the title each column
@@ -73,8 +82,8 @@ export default class GridData extends React.Component {
                 width:'10%',
                 render: (record, value)=>{ return (
                     <div>
-                    <span className="d-inline-flex c-pointer mr-2 font-medium icon-trash "><Icon type="delete" /> </span>
-                    <span className="d-inline-flex c-pointer font-medium icon-edit"  onClick={()=> this.gotoDetail(value.id)}><Icon type="edit" /> </span>
+                    <span className="d-inline-flex c-pointer mr-2 font-medium icon-trash" onClick={()=>this.delete(value.id)}><Icon type="delete" /> </span>
+                    <span className="d-inline-flex c-pointer font-medium icon-edit"  onClick={()=>this.gotoDetail(value.id)}><Icon type="edit" /> </span>
                     </div>
                 )}
             }
