@@ -28,6 +28,7 @@ export default class Landpage extends React.Component {
                     <BrowserRouter>
                         <Switch>
                             <Route exact path='/' component={GridData}/>
+                            <Route path={'/detail/delivery/:id?'} component={FormDataRegister} />
                             <Route exact path='/add' component={FormDataRegister}/>
                         </Switch>
                     </BrowserRouter>

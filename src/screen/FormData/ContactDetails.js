@@ -1,59 +1,77 @@
 import React from 'react';
-import { Form, Row, Col, Button } from 'antd';
+import {Form, Row, Col, Button, AutoComplete,} from 'antd';
 
 import ContactDelivery from './ContactDelivery';
 import ContactComercial from "./ContactComercial";
 import ContactAdministrative from "./ContactAdministrative";
 
-import { formItemLayout } from '../../utils/StylesConstants';
-
-import { Redirect } from "react-router-dom";
+import {formItemLayout} from '../../utils/StylesConstants';
+import moment from 'moment';
+import {Link, Redirect} from "react-router-dom";
 import _ from "lodash";
 
 
-class FormData extends React.Component {
-    state = {
-        current: 'new',
-        autoCompleteResult: [],
-        data: [],
-        redirect: false
-    };
+class ContactDetails extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            current: 'new',
+            autoCompleteResult: [],
+            data: [],
+            redirect: false
+        };
+    }
 
-    cancelForm = () => {
-        this.setState({ redirect: true });
-    };
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-
+                //console.log('Received values of form: ', values);
             }
             this.updateStorage(values);
+            const time = moment('12:08', 'HH:mm');
+            console.log("lo que recibo", values);
         });
     };
 
     updateStorage = (values) => {
         const uuidv1 = require('uuid/v1');
-        const id =uuidv1();
-
-        let add = {...values,id};
+        const id = uuidv1();
+        console.log("el ID", id);
+        let add = {...values, id};
         let existing = JSON.parse(localStorage.getItem('data')) || [];
+
+        console.log("tengo algo en storage?", existing);
 
         existing.push(add);
 
+        console.log("Preparado para actualizar la data", existing);
         localStorage.setItem('data', JSON.stringify(existing));
 
-        this.setState({ redirect: true });
+        console.log("Guarde algo?", JSON.parse(localStorage.getItem('data')));
+
+        this.setState({redirect: true});
     };
 
     componentDidMount() {
-        this.setState({ data: JSON.parse(localStorage.getItem('data')) })
+        this.setState({data: JSON.parse(localStorage.getItem('data'))})
     }
 
+    clearLocalStorage = () => {
+        console.log("Limpiando Storage");
+        localStorage.clear();
+    };
+
     render() {
-        const data=_.find(this.state.data, { 'id':this.props.match.params.id });
+        console.log("la data", this.state.data);
+        console.log("el ID", this.props.match.params);
+        const data=_.find(this.state.data, {'id':this.props.match.params.id});
+
+        console.log("Los props", data);
+
         const {getFieldDecorator} = this.props.form;
+
         return (
             <>
                 <Form {...formItemLayout} onSubmit={this.handleSubmit}>
@@ -62,7 +80,7 @@ class FormData extends React.Component {
                             <div className="offset-3">
                                 <h5 className="border-bottom">Datos del Delivery</h5>
                             </div>
-                            <ContactDelivery data={ data } getFieldDecorator={ getFieldDecorator }/>
+                            <ContactDelivery getFieldDecorator={getFieldDecorator}/>
                         </Col>
                         <Col span={12}>
 
@@ -73,7 +91,7 @@ class FormData extends React.Component {
                             <h5 className="border-bottom">Contacto Administrativo</h5>
                             <Row>
                                 <Col span={24}>
-                                    <ContactAdministrative data={ data } getFieldDecorator={ getFieldDecorator }/>
+                                    <ContactAdministrative getFieldDecorator={getFieldDecorator}/>
                                 </Col>
                             </Row>
                         </Col>
@@ -81,7 +99,7 @@ class FormData extends React.Component {
                             <h5 className="border-bottom">Contacto Comercial</h5>
                             <Row>
                                 <Col span={24}>
-                                    <ContactComercial data={ data } getFieldDecorator={ getFieldDecorator }/>
+                                    <ContactComercial getFieldDecorator={getFieldDecorator}/>
                                 </Col>
                             </Row>
                         </Col>
@@ -89,7 +107,8 @@ class FormData extends React.Component {
                     <Row>
                         <Col span={22} className="d-flex justify-content-end">
                             <Button className="mr-2" type="primary" htmlType="submit">Guardar</Button>
-                            <Button type="warning" htmlType="button" onClick={ this.cancelForm }>Cancelar</Button>
+                            <Link to="/" className="mr-2 btn btn-primary">Cancel</Link>
+                            <Button type="warning" htmlType="button" onClick={this.clearLocalStorage}>Limpiar</Button>
                         </Col>
                     </Row>
                 </Form>
@@ -99,6 +118,6 @@ class FormData extends React.Component {
     }
 }
 
-const FormDataRegister = Form.create({name: 'register'})(FormData);
+const ContactDetailsForm = Form.create({name: 'register'})(ContactDetails);
 
-export default FormDataRegister;
+export default ContactDetailsForm;

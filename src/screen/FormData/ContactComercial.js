@@ -7,38 +7,48 @@ const ContactComercial = (props) => {
     const state = {
         current: 'new',
         autoCompleteResult: [],
+        data: props.data || {
+            comercial_f_name: '',
+            comercial_l_name: '',
+            comercial_phone: '',
+            comercial_email: '',
+        }
     };
     const {getFieldDecorator} = props;
-
+    const { data }= state;
     return (
         <React.Fragment>
             <Form.Item  {...footerData}
-                label={(<span> Nombre </span>)}>
+                        label={(<span> Nombre </span>)}>
                 {
-                    getFieldDecorator('firstname-comercial', {
-                    rules: [Validations.name],
-                })( <Input/> )}
+                    getFieldDecorator(
+                        'comercial_f_name',
+                        {initialValue: data.comercial_f_name},
+                        { rules: [Validations.name] })( <Input/> )}
             </Form.Item>
             <Form.Item  {...footerData}
-                label={(<span> Apellido </span>)}>
+                        label={(<span> Apellido </span>)}>
                 {
-                    getFieldDecorator('lastname-comercial', {
-                    rules: [Validations.lastname]
-                    })( <Input/> )}
+                    getFieldDecorator(
+                        'comercial_l_name',
+                        {initialValue: data.comercial_l_name},
+                        { rules: [Validations.lastname] })( <Input/> )}
             </Form.Item>
             <Form.Item  {...footerData}
-                label={( <span> Telefono </span> )} >
+                        label={( <span> Telefono </span> )} >
                 {
-                    getFieldDecorator('phone-comercial', {
-                    rules: [Validations.phone_100],
-                })( <Input/> )}
+                    getFieldDecorator(
+                        'comercial_phone',
+                        {initialValue: data.comercial_phone},
+                        { rules: [Validations.phone_100] })( <Input/> )}
             </Form.Item>
             <Form.Item  {...footerData}
-                label={( <span> Email </span> )} >
+                        label={( <span> Email </span> )} >
                 {
-                    getFieldDecorator('email-comercial', {
-                    rules: [Validations.email, Validations.email_required],
-                })( <Input/> )}
+                    getFieldDecorator(
+                        'comercial_email',
+                        {initialValue: data.comercial_email},
+                        { rules: [Validations.email, Validations.email_required] })( <Input/> )}
             </Form.Item>
         </React.Fragment>
     )
