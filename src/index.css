@@ -50,3 +50,12 @@ code {
   box-shadow: lightgrey 2px 2px 2px;
   background: #efefef;
 }
+
+
+.isReadOnly, .isReadOnly input {
+  color: #282c34 !important;
+  background-color: #fff !important;
+  border:none !important;
+  cursor: default !important;
+  border-bottom: 1px solid #ccc !important;
+}

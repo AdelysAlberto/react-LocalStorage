@@ -1,9 +1,9 @@
 import React from 'react';
 import {Form, Row, Col, Button, AutoComplete,} from 'antd';
 
-import ContactDelivery from './ContactDelivery';
-import ContactComercial from "./ContactComercial";
-import ContactAdministrative from "./ContactAdministrative";
+import FormDelivery from './ContactDelivery';
+import FormComercial from "./ContactComercial";
+import FormAdministrative from "./ContactAdministrative";
 
 import {formItemLayout} from '../../utils/StylesConstants';
 import moment from 'moment';
@@ -80,7 +80,7 @@ class ContactDetails extends React.Component {
                             <div className="offset-3">
                                 <h5 className="border-bottom">Datos del Delivery</h5>
                             </div>
-                            <ContactDelivery getFieldDecorator={getFieldDecorator}/>
+                            <FormDelivery getFieldDecorator={getFieldDecorator}/>
                         </Col>
                         <Col span={12}>
 
@@ -91,7 +91,7 @@ class ContactDetails extends React.Component {
                             <h5 className="border-bottom">Contacto Administrativo</h5>
                             <Row>
                                 <Col span={24}>
-                                    <ContactAdministrative getFieldDecorator={getFieldDecorator}/>
+                                    <FormAdministrative getFieldDecorator={getFieldDecorator}/>
                                 </Col>
                             </Row>
                         </Col>
@@ -99,7 +99,7 @@ class ContactDetails extends React.Component {
                             <h5 className="border-bottom">Contacto Comercial</h5>
                             <Row>
                                 <Col span={24}>
-                                    <ContactComercial getFieldDecorator={getFieldDecorator}/>
+                                    <FormComercial getFieldDecorator={getFieldDecorator}/>
                                 </Col>
                             </Row>
                         </Col>

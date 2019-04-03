@@ -3,7 +3,7 @@ import React from "react";
 import Validations from '../../utils/ValidationRules';
 import { footerData } from '../../utils/StylesConstants';
 
-const ContactAdministrative = (props) => {
+const FormAdministrative = (props) => {
     const state = {
         current: 'new',
         autoCompleteResult: [],
@@ -14,45 +14,40 @@ const ContactAdministrative = (props) => {
             admin_email: '',
         }
     };
-    const {getFieldDecorator} = props;
+    const { getFieldDecorator, disabled, styleReadOnly } = props;
     const { data }= state;
 
     return (
         <React.Fragment>
             <Form.Item  {...footerData}
                 label={(<span> Nombre </span>)}>
-                {
-                    getFieldDecorator(
+                { getFieldDecorator(
                         'admin_f_name',
-                        {initialValue: data.admin_f_name},
-                        { rules: [Validations.name] })( <Input/> )}
+                        {initialValue: data.admin_f_name,
+                            rules: [Validations.name] })( <Input className={styleReadOnly} disabled={ disabled } /> )}
             </Form.Item>
             <Form.Item  {...footerData}
                 label={(<span> Apellido </span>)}>
-                {
-                    getFieldDecorator(
+                { getFieldDecorator(
                         'admin_l_name',
-                        {initialValue: data.admin_l_name},
-                        { rules: [Validations.lastname] })( <Input/> )}
+                        {initialValue: data.admin_l_name,
+                            rules: [Validations.lastname] })( <Input className={styleReadOnly} disabled={ disabled } /> )}
             </Form.Item>
             <Form.Item  {...footerData}
                 label={( <span> Telefono </span> )} >
-                {
-                    getFieldDecorator(
+                { getFieldDecorator(
                         'admin_phone',
-                        {initialValue: data.admin_phone},
-                        { rules: [Validations.phone_100] })( <Input/> )}
+                        {initialValue: data.admin_phone,
+                            rules: [Validations.phone_100] })( <Input className={styleReadOnly} disabled={ disabled } /> )}
             </Form.Item>
             <Form.Item  {...footerData}
                 label={( <span> Email </span> )} >
-                {
-                    getFieldDecorator(
+                { getFieldDecorator(
                         'admin_email',
-                        {initialValue: data.admin_email},
-                        { rules: [Validations.email, Validations.email_required] })( <Input/> )}
+                        {initialValue: data.admin_email,
+                            rules: [Validations.email, Validations.email_required] })( <Input className={styleReadOnly} disabled={ disabled } /> )}
             </Form.Item>
         </React.Fragment>
     )
-}
-
-export default ContactAdministrative;
+};
+export default FormAdministrative;

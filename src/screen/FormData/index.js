@@ -1,10 +1,11 @@
 import React from 'react';
-import { Form, Row, Col, Button } from 'antd';
+import {Form, Row, Col, Button, Popconfirm, message} from 'antd';
 
-import ContactDelivery from './ContactDelivery';
-import ContactComercial from "./ContactComercial";
-import ContactAdministrative from "./ContactAdministrative";
-
+import FormDelivery from './FormDelivery';
+import FormComercial from "./FormComercial";
+import FormAdministrative from "./FormAdministrative";
+import { updateStorage  } from '../../utils/helpers';
+import { TEXT_CONFIRM  } from '../../utils/constants';
 import { formItemLayout } from '../../utils/StylesConstants';
 
 import { Redirect } from "react-router-dom";
@@ -16,36 +17,31 @@ class FormData extends React.Component {
         current: 'new',
         autoCompleteResult: [],
         data: [],
-        redirect: false
+        redirect: false,
+        disabled: window.location.pathname !== '/add',
     };
 
+    confirm = () => {
+        message.info('Campos habilitados para editar');
+        this.setState({ disabled: false});
+    };
     cancelForm = () => {
         this.setState({ redirect: true });
     };
 
-    handleSubmit = (e) => {
+    handleSubmit =  (e)  => {
         e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
+        this.props.form.validateFields(async (err, values) => {
             if (!err) {
-
+                console.log(values);
+                await  updateStorage(values);
+                message.success('Los datos han sido almacenados...');
+                this.setState({ redirect: true });
             }
-            this.updateStorage(values);
+
         });
     };
 
-    updateStorage = (values) => {
-        const uuidv1 = require('uuid/v1');
-        const id =uuidv1();
-
-        let add = {...values,id};
-        let existing = JSON.parse(localStorage.getItem('data')) || [];
-
-        existing.push(add);
-
-        localStorage.setItem('data', JSON.stringify(existing));
-
-        this.setState({ redirect: true });
-    };
 
     componentDidMount() {
         this.setState({ data: JSON.parse(localStorage.getItem('data')) })
@@ -53,6 +49,8 @@ class FormData extends React.Component {
 
     render() {
         const data=_.find(this.state.data, { 'id':this.props.match.params.id });
+        const {disabled} = this.state;
+        const styleReadOnly= disabled ? 'isReadOnly' : '';
         const {getFieldDecorator} = this.props.form;
         return (
             <>
@@ -62,7 +60,7 @@ class FormData extends React.Component {
                             <div className="offset-3">
                                 <h5 className="border-bottom">Datos del Delivery</h5>
                             </div>
-                            <ContactDelivery data={ data } getFieldDecorator={ getFieldDecorator }/>
+                            <FormDelivery styleReadOnly={styleReadOnly} disabled={ disabled } data={ data } getFieldDecorator={ getFieldDecorator }/>
                         </Col>
                         <Col span={12}>
 
@@ -73,7 +71,7 @@ class FormData extends React.Component {
                             <h5 className="border-bottom">Contacto Administrativo</h5>
                             <Row>
                                 <Col span={24}>
-                                    <ContactAdministrative data={ data } getFieldDecorator={ getFieldDecorator }/>
+                                    <FormAdministrative styleReadOnly={styleReadOnly} disabled={ disabled } data={ data } getFieldDecorator={ getFieldDecorator }/>
                                 </Col>
                             </Row>
                         </Col>
@@ -81,15 +79,22 @@ class FormData extends React.Component {
                             <h5 className="border-bottom">Contacto Comercial</h5>
                             <Row>
                                 <Col span={24}>
-                                    <ContactComercial data={ data } getFieldDecorator={ getFieldDecorator }/>
+                                    <FormComercial styleReadOnly={styleReadOnly} disabled={ disabled } data={ data } getFieldDecorator={ getFieldDecorator }/>
                                 </Col>
                             </Row>
                         </Col>
                     </Row>
                     <Row>
                         <Col span={22} className="d-flex justify-content-end">
-                            <Button className="mr-2" type="primary" htmlType="submit">Guardar</Button>
-                            <Button type="warning" htmlType="button" onClick={ this.cancelForm }>Cancelar</Button>
+                            {disabled &&
+                            <Popconfirm placement="top" title={TEXT_CONFIRM.TEXT_EDIT} onConfirm={this.confirm}  okText="Yes" cancelText="No">
+                                <Button className="mr-2" type="primary" htmlType="button"> Editar </Button>
+                            </Popconfirm>
+                            }
+                            {!disabled &&
+                                <Button className="mr-2" type="primary" htmlType="submit"> Guardar </Button>
+                            }
+                            <Button type="warning" htmlType="button" onClick={ this.cancelForm }> Cancelar </Button>
                         </Col>
                     </Row>
                 </Form>
