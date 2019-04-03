@@ -1,7 +1,7 @@
 import { Form, Input } from "antd";
 import React from "react";
-import Validations from '../../utils/ValidationRules';
-import { footerData } from '../../utils/StylesConstants';
+import Validations from '../../utils/validations_rules';
+import { footerData } from '../../utils/styles_constants';
 
 const FormAdministrative = (props) => {
     const state = {

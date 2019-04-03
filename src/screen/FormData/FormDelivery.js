@@ -1,7 +1,7 @@
 import { TimePicker, Form, Input } from "antd";
 
 import React from "react";
-import Validations from '../../utils/ValidationRules';
+import Validations from '../../utils/validations_rules';
 import moment from "moment";
 
 

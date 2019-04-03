@@ -6,7 +6,7 @@ import FormComercial from "./FormComercial";
 import FormAdministrative from "./FormAdministrative";
 import { updateStorage  } from '../../utils/helpers';
 import { TEXT_CONFIRM  } from '../../utils/constants';
-import { formItemLayout } from '../../utils/StylesConstants';
+import { formItemLayout } from '../../utils/styles_constants';
 
 import { Redirect } from "react-router-dom";
 import _ from "lodash";

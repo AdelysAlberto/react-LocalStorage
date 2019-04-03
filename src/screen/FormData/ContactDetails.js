@@ -1,11 +1,11 @@
 import React from 'react';
 import {Form, Row, Col, Button, AutoComplete,} from 'antd';
 
-import FormDelivery from './ContactDelivery';
-import FormComercial from "./ContactComercial";
-import FormAdministrative from "./ContactAdministrative";
+import FormDelivery from './FormDelivery';
+import FormComercial from "./FormComercial";
+import FormAdministrative from "./FormAdministrative";
 
-import {formItemLayout} from '../../utils/StylesConstants';
+import {formItemLayout} from '../../utils/styles_constants';
 import moment from 'moment';
 import {Link, Redirect} from "react-router-dom";
 import _ from "lodash";
