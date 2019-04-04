@@ -42,7 +42,6 @@ export default class GridData extends React.Component {
         // if the index is not null then apply the filter
         if (index !== "") {
             newData = currentData.filter(value => value[i].toLowerCase().includes(index));
-            console.log("El Filtro", newData);
         } else {
             // if not restore the state, with all services
             newData = this.state.backup;
@@ -71,7 +70,6 @@ export default class GridData extends React.Component {
     render() {
         //get data sources from the state
         const {data} = this.state;
-        console.log(data);
         //define the columns
         const columns = [{
             //set the title each column
@@ -125,7 +123,7 @@ export default class GridData extends React.Component {
                 <Row className={'pr-5 pl-5'}>
                     <Col span={20}>
                         <h4>
-                            Listado de Delivery
+                            Listado de Casas de Comida
                         </h4>
                     </Col>
                     <Col span={4}>

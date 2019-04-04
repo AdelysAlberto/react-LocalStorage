@@ -7,18 +7,22 @@ import FormAdministrative from "./FormAdministrative";
 import { updateStorage  } from '../../utils/helpers';
 import { TEXT_CONFIRM  } from '../../utils/constants';
 import { formItemLayout } from '../../utils/styles_constants';
+import {MapContainer} from "../../components/Maps/MapContainer";
 
 import { Redirect } from "react-router-dom";
 import _ from "lodash";
+
 
 
 class FormData extends React.Component {
     state = {
         current: 'new',
         autoCompleteResult: [],
-        data: [],
+        data: {},
+        dataFOUND:'',
         redirect: false,
         disabled: window.location.pathname !== '/add',
+        locationdata : {},
     };
 
     confirm = () => {
@@ -29,29 +33,39 @@ class FormData extends React.Component {
         this.setState({ redirect: true });
     };
 
+
+    setValues(data) {
+        this.setState({locationdata : data});
+    }
+
     handleSubmit =  (e)  => {
+        let location=this.state.locationdata;
         e.preventDefault();
         this.props.form.validateFields(async (err, values) => {
             if (!err) {
-                console.log(values);
-                await  updateStorage(values);
+                const newValue = {...values, location};
+                await  updateStorage(newValue);
                 message.success('Los datos han sido almacenados...');
                 this.setState({ redirect: true });
             }
 
         });
     };
-
+    foundDelivery = (idSearch) =>{
+        return _.find(this.state.data, { 'id':idSearch});
+    };
 
     componentDidMount() {
-        this.setState({ data: JSON.parse(localStorage.getItem('data')) })
+        this.setState({ data: JSON.parse(localStorage.getItem('data')) });
     }
 
     render() {
-        const data=_.find(this.state.data, { 'id':this.props.match.params.id });
-        const {disabled} = this.state;
+        const idSearch=this.props.match.params.id ? this.props.match.params.id : '';
+        const dataFound=this.foundDelivery(idSearch);
+        const { disabled } = this.state;
         const styleReadOnly= disabled ? 'isReadOnly' : '';
         const {getFieldDecorator} = this.props.form;
+
         return (
             <>
                 <Form {...formItemLayout} onSubmit={this.handleSubmit}>
@@ -60,10 +74,14 @@ class FormData extends React.Component {
                             <div className="offset-3">
                                 <h5 className="border-bottom">Datos del Delivery</h5>
                             </div>
-                            <FormDelivery styleReadOnly={styleReadOnly} disabled={ disabled } data={ data } getFieldDecorator={ getFieldDecorator }/>
+                            <FormDelivery styleReadOnly={styleReadOnly} disabled={ disabled }
+                                          data={ dataFound } getFieldDecorator={ getFieldDecorator }
+                                          setValues={(data) => this.setValues(data)} />
                         </Col>
                         <Col span={12}>
-
+                            <div style={{ height: '40vh', width: '100%' }}>
+                                <MapContainer data={ dataFound } />
+                            </div>
                         </Col>
                     </Row>
                     <Row>
@@ -71,7 +89,7 @@ class FormData extends React.Component {
                             <h5 className="border-bottom">Contacto Administrativo</h5>
                             <Row>
                                 <Col span={24}>
-                                    <FormAdministrative styleReadOnly={styleReadOnly} disabled={ disabled } data={ data } getFieldDecorator={ getFieldDecorator }/>
+                                    <FormAdministrative styleReadOnly={styleReadOnly} disabled={ disabled } data={ dataFound } getFieldDecorator={ getFieldDecorator }/>
                                 </Col>
                             </Row>
                         </Col>
@@ -79,7 +97,7 @@ class FormData extends React.Component {
                             <h5 className="border-bottom">Contacto Comercial</h5>
                             <Row>
                                 <Col span={24}>
-                                    <FormComercial styleReadOnly={styleReadOnly} disabled={ disabled } data={ data } getFieldDecorator={ getFieldDecorator }/>
+                                    <FormComercial styleReadOnly={styleReadOnly} disabled={ disabled } data={ dataFound } getFieldDecorator={ getFieldDecorator }/>
                                 </Col>
                             </Row>
                         </Col>

@@ -1,68 +1,76 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Challenge Adelys Alberto Belen
+##### Frontend Developer
+**Email: adalbeca@gmail.com** // **Phone: 15.2779.2625** 
+#
 
-## Available Scripts
+#### Quick install
+1) Enter **test-despegar/**
+```console
+$ npm i
+```
 
-In the project directory, you can run:
+```console
+$ npm start
+```
 
-### `npm start`
+### Used Library technologies :
+* React
+* antd
+* lodash
+* moment
+* LocalStorage
+* React Google Maps
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Porque antd - Ant Design?
+Tras analizar los requerimientos, la necesidad de una Table con registros, controlar columnas, Filtros, Ordenamientos y validaciones de Formulario, me parecio muy util, esta libreria, pues ofrece lo requerido, dando buenos resultados en UI & UX.
+Tambien era buena opcion Material UI, pero por el tiempo en contra, antd me daba solucion inmediata. 
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+#### Lodash
+Esta herramienta, nos facilita y permite hacer complejas funciones, filtros, recorridos de array/Objects con mucho menos lineas de lo normal. 
+Vale la pena aclarar que esta herramienta, en proyectos de grandes dimensiones, no estaria bueno usarla, por cuestiones de Velocidad & perfomance. Para este proyecto la use por cuestiones de tiempo y practicidad.
 
-### `npm test`
+#### LocalStorage
+Use localStorage, para aprovechar un mayor almacenamiento con la Storage del lado del cliente, pues al ser algo pequeño, no me daria problemas con consumos de memorias y rendimiento.   
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+##Extras
+#### React Google Maps
+Agregue extra esta pequeña funcionabilidad, para poder mostrar un maps con la ubicacion de las casas de comida registradas, pudiendo luego implementar rutas de entregas y estimacion de tiempo de entrega.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+##### Limpiar Storage
+No estaba en el mockup que se me entrego para seguir, pero agregue un pequeño boton, del lado inferior izquierdo, para limpiar el LocalStorage manualmente, y no destruir la data tras cerrar el navegador. 
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Nota:
+**Conocimientos Previos de Angular:**
+Con Angular 2, he tenido poca experiencia, no más de 3 meses en un proyecto para GAS Meridional.
+Trabaje con la creación de un dashboard, directivas y unos módulos de consultas, apuntando a una API servida en Java.
 
-### `npm run eject`
+Por otro lado, con **React**, he tenido más experiencia y desarrollo, creando componentes reutilizables, refactorizando, entre otras tareas más, he trabajado con varios proyectos (en la software factory en la cual trabajo hoy en día) desde los cuales he usado
+* React.
+* React -> Redux,
+* React -> Libby (este último es una librería creada por la empresa y en constante actualización por nosotros mismos).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Entre los clientes que puedo mencionar en los cuales he tenido gran participación:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* http://vuelos.com (Argentina) => este proyecto es de ustedes (despegar.com), mi participación fue a tiempo completo, desarrollando la nueva imagen (frontend), Entregado en Octubre 2018. 
+* Kikker (Brasil) - **React**
+* Fibran (Argentina) - **React**
+* Corporate Wellness (Mexico) - **React**
+* mrktmetrics.com - **Front (HTML+Javscript) y Backend Pyhton Django**
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Proyecto personal:
+* http://midni.adalbeca.com/
+Desarrollado en REACT + Nodejs
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+  Desde mi punto de Vista, React es una potente librería, que debido a su manera de trabajar los States & Components, este último, que nos permite encapsular código, generar pequeñas piezas funcionales, y su manera de comunicación entre diversos objetos, colaborando entre sí, la hace una libreria con excelente rendimiento.  
+ 
+ 
+######Comentarios
+Hubiese querido pulir un poco más la aplicación, daba para implementar muchas ideas, pero tuve poco tiempo libre para hacer cosas más detalladas, en mi trabajo estamos entregando la demo a un cliente, ocasionando llegar tarde a casa para poder dedicarle más tiempo a la prueba.
 
-## Learn More
+Ante cualquier duda, estaré atento y espero su Feedback.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Saludos**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
