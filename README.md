@@ -66,7 +66,8 @@ Desarrollado en REACT + Nodejs
   Desde mi punto de Vista, React es una potente librería, que debido a su manera de trabajar los States & Components, este último, que nos permite encapsular código, generar pequeñas piezas funcionales, y su manera de comunicación entre diversos objetos, colaborando entre sí, la hace una libreria con excelente rendimiento.  
  
  
-######Comentarios
+##### Comentarios
+
 Hubiese querido pulir un poco más la aplicación, daba para implementar muchas ideas, pero tuve poco tiempo libre para hacer cosas más detalladas, en mi trabajo estamos entregando la demo a un cliente, ocasionando llegar tarde a casa para poder dedicarle más tiempo a la prueba.
 
 Ante cualquier duda, estaré atento y espero su Feedback.
