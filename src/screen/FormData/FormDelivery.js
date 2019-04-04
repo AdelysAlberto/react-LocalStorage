@@ -3,7 +3,7 @@ import { TimePicker, Form, Input } from "antd";
 import React from "react";
 import Validations from '../../utils/validations_rules';
 import moment from "moment";
-
+import Autocomplete from 'react-google-autocomplete';
 
 const FormDelivery = (props) => {
     const state = {
@@ -19,6 +19,14 @@ const FormDelivery = (props) => {
             time_to:"",
             time_from:"",
         },
+    };
+
+    const onPlaceSelected = (place) => {
+        const data = {};
+        data['address'] = place.formatted_address;
+        data['latitud'] = place.geometry.location.lat();
+        data['longitud'] = place.geometry.location.lng();
+        props.setValues(data);
     };
 
 
@@ -73,7 +81,13 @@ const FormDelivery = (props) => {
                 { getFieldDecorator(
                         'direction',
                         { initialValue: data.direction, rules: [ Validations.direction ]
-                        })(<Input className={styleReadOnly} disabled={ disabled } />)}
+                        })(
+                    <Autocomplete disabled={ disabled }
+                                  style={{width: '100%', height: '35px', borderRadius: '4px', paddingLeft: '10px'}}
+                                  onPlaceSelected={(place) => onPlaceSelected(place)}
+                                  types={['address']}
+                    />
+                            )}
             </Form.Item>
 
             <Form.Item
